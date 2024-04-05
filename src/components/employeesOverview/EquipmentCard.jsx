@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdKeyboard } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,8 +6,33 @@ import { useDispatch, useSelector } from "react-redux";
 const EquipmentCard = () => {
     const details = useSelector((state) => state.Equipment);
     const organizationDetails = details.organization
+    const [empdata, setempdata] = useState({})
     const workerDetails = details.worker
+    useEffect(()=>{
+        const empId = typeof window !== "undefined" ? localStorage.getItem("empId") : null;
+      console.log(empId, 'from localStorage')
+          const fetchData = async ()=>{
+            try{
+              const empdetails = await axios.get(`/employee/${empId}`,{
+    
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              });
+    
+              // console.log("data",employees)
+              setempdata(empdetails.data.equipment
+                )
 
+    
+            }
+            catch(error){
+              console.log('error',error);
+            }
+          }
+          fetchData()
+        },[])
+        console.log("Equipment", empdata)
     return (
         <div className='w-full flex overflow-x-auto'>
 
