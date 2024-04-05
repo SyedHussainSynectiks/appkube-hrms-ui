@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setId, setpersonalDetails } from "@/redux/slices/Details";
+import { setpersonalDetails } from "@/redux/slices/Details";
 // import { Provider } from "react-redux";
 // import { store } from "@/redux/store/store";
 import { Form, Input, Row, Col, Select, Radio, Upload, DatePicker } from "antd";
@@ -27,7 +27,7 @@ const beforeUpload = (file) => {
   }
   return isLt2M;
 };
-const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
+const PersonalInformation = ({ tab, setTab }) => {
   const accessToken = getAccessTokenFromCookie();
   const persDetails = useSelector((state) => state.Details);
   const router = useRouter();
@@ -37,9 +37,6 @@ const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
   const dispatch = useDispatch();
   const [selectedCountry, setSelectedCountry] = useState();
   const [selectedState, setselectedState] = useState();
-  const Tab = useSelector((state) => state.Details)
-  const tabs = Tab.tab
-  const Id = Tab.id
   // const [status ,setStatus] = useState(null)
   // const [image,setImage] = useState(null)
 
@@ -87,7 +84,6 @@ const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
   };
 
   const [formData, setFormData] = useState({
-    id: "",
     email: "",
     work_email: "",
     first_name: "",
@@ -111,7 +107,6 @@ const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
     // console.log(info, 'info')
     // setLoading(true);
     // return;
-    setLoading(true);
     // }
     // if (info.file.status === "done") {
     const file = info.file.originFileObj;
@@ -170,7 +165,7 @@ const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
       city: formData.city,
       zipcode: formData.zipcode,
       emp_type: 1,
-      image: JSON.stringify(Attachments),
+      image: Attachments,
     };
     try {
       console.log("data", data);
@@ -187,13 +182,9 @@ const PersonalInformation = ({ tab, setTab ,setPersonalInfoFilled}) => {
         console.log("response data", response.data);
         // storing the response in redux
         dispatch(setpersonalDetails(response.data));
-        dispatch(setId(response.data.id))
-        setTab(tab + 1)
-        setPersonalInfoFilled(true);
         // getting employee id from local storage
 
         const id = localStorage.getItem("empId");
-        setPersonalInfoFilled(true);
         //  checking tthe existance of employee id
         if (id) {
           console.log("previouse id of local storage present", id);

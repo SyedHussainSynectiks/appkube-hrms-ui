@@ -35,8 +35,9 @@ const Equipments = ({ tab, setTab }) => {
     console.log(owner)
   };
   const id = useSelector((state) => state.Details.id)
+  const empId = localStorage.getItem("empId");
   console.log("ID", id)
-  const details = useSelector((state) => state.Equipment);
+  const details = useSelector((state) => state.EquipmentDetails);
   const organizationDetails = details.organization
   console.log(organizationDetails)
 
@@ -121,7 +122,7 @@ const Equipments = ({ tab, setTab }) => {
           serial_number: item.SerialNumber,
           note: item.Notes,
           supply_date: new Date(item.Date).toISOString(), // Convert date to ISO string
-          emp_id: id
+          emp_id: empId
         };
       } else {
         data = {
@@ -130,7 +131,7 @@ const Equipments = ({ tab, setTab }) => {
           manufacturer: item.Manufacturer,
           serial_number: item.SerialNumber,
           note: item.Notes,
-          emp_id: id
+          emp_id: empId
         };
       }
 
@@ -187,11 +188,6 @@ const Equipments = ({ tab, setTab }) => {
               Provide your own equipment and keep track of it for seamless work
               experiences
             </p>
-          </div>
-          <div>
-            <Button type="primary" className="bg-[#1890FF] text-white hover:text-[#1890FF] hover:bg-white  border hover:border-[#1890FF] rounded-none mt-3 p-2 ">
-              Add Equipment
-            </Button>
           </div>
         </div>
       </div>

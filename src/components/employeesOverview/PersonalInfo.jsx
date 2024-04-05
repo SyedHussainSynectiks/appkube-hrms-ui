@@ -25,7 +25,7 @@ const PersonalInfo = () => {
   // console.log(id, 'Getting id from employee')
 
   const [data, setdata] = useState({})
-  const id = useSelector((state)=>state.Details.id)
+  const id = useSelector((state)=>state.Details.ParticularempId)
 
   console.log(id, 'from redux')
 
@@ -73,11 +73,10 @@ const PersonalInfo = () => {
 
 
   useEffect(() => {
-    const empId = typeof window !== "undefined" ? localStorage.getItem("empId") : null;
     if (id) {
       const fetchData = async () => {
         try {
-          const response = await axios.get(`/employee/${empId}`, {
+          const response = await axios.get(`/employee/${id}`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

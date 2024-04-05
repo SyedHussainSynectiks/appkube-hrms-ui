@@ -1,3 +1,10 @@
+// import React from 'react'
+// import { useEffect, useState } from 'react';
+// import { MdKeyboard } from "react-icons/md";
+// import { useDispatch, useSelector } from "react-redux";
+// import axios from '@/api/axios'
+// import getAccessTokenFromCookie from '@/utils/getAccessToken';
+
 
 // const EquipmentCard = () => {
 //     const accessToken = getAccessTokenFromCookie()
@@ -94,35 +101,29 @@ import {useSelector } from 'react-redux'
 import getAccessTokenFromCookie from '@/utils/getAccessToken';
 
 const EquipmentCard = () => {
-    const details = useSelector((state) => state.Equipment);
-    const organizationDetails = details.organization
-    const [empdata, setempdata] = useState({})
-    const workerDetails = details.worker
-    useEffect(()=>{
-        const empId = typeof window !== "undefined" ? localStorage.getItem("empId") : null;
-      console.log(empId, 'from localStorage')
-          const fetchData = async ()=>{
-            try{
-              const empdetails = await axios.get(`/employee/${empId}`,{
-    
-                headers: {
-                  Authorization: `Bearer ${accessToken}`,
-                },
-              });
-    
-              // console.log("data",employees)
-              setempdata(empdetails.data.equipment
-                )
+    const accessToken = getAccessTokenFromCookie();
 
-    
+    const [organizationDetails, setOrganizationDetails] = useState([]);
+    const id = useSelector((state)=>state.Details.ParticularempId)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const empId = typeof window !== "undefined" ? localStorage.getItem("empId") : null;
+                const response = await axios.get(`/employee/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                setOrganizationDetails(response.data.equipment);
+            } catch(error) {
+                console.log('Error fetching organization details:', error);
             }
-            catch(error){
-              console.log('error',error);
-            }
-          }
-          fetchData()
-        },[])
-        console.log("Equipment", empdata)
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className='w-full flex overflow-x-auto'>
             {organizationDetails && organizationDetails.length > 0 && organizationDetails.map((data, index) => (

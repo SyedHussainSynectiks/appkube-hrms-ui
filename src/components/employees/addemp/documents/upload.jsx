@@ -35,14 +35,8 @@ const UploadFiles = () => {
   );
 
 
-<<<<<<< HEAD
-  // const [req, setReq] = useState(
-  //   { fileName: '', data: '' }
-  // );
-=======
 
   
->>>>>>> ccb4f446e019a712fc7fa22e15197351cb13a8dc
 
   const [fileuploaded, setfileuploaded] = useState(false)
 
