@@ -36,6 +36,6 @@ export const slice = createSlice({
 
 export const { updateProfessionalDetails,uanNumber,pfNumber,employeeId, setSelectedDate,setDropdownOption,addToDataArray,setDropdownOptionDesig,setDropdownOptionwork,setDropdownOptionReport } = slice.actions;
 
-// export const selectProfessionalDetails = (state) => state.professionalDetails;
+export const selectProfessionalDetails = (state) => state.professionalDetails;
 
 export default slice.reducer;

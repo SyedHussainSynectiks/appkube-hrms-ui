@@ -1,50 +1,53 @@
-import React, { useEffect, useState } from 'react';
+'use client'
+import React from 'react'
+import { useEffect, useState } from 'react';
 import { FiEye } from "react-icons/fi";
 import { CiSaveDown1 } from "react-icons/ci";
-
 import axios from '@/api/axios';
-import {useSelector } from 'react-redux'
 import getAccessTokenFromCookie from '@/utils/getAccessToken';
-
-
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
 
 const DocumentCard = () => {
-    
-    const accessToken = getAccessTokenFromCookie();
 
-    const [organizationDocuments, setOrganizationDocuments] = useState([]);
+    const accessToken = getAccessTokenFromCookie();
+    const [documents, setdocuments] = useState([]);
+
+    
+   
+    // const empId = typeof window !== 'undefined' ? localStorage.getItem('empId') : null;
     const id = useSelector((state)=>state.Details.ParticularempId)
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const empId = typeof window !== "undefined" ? localStorage.getItem("empId") : null;
-                const response = await axios.get(`/employee/${empId}`, {
+                const empDetails = await axios.get(`/employee/${id}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 });
-                setOrganizationDocuments(response.data.documents);
-            } catch(error) {
-                console.log('Error fetching organization details:', error);
+                  console.log(empDetails, 'from documents')
+                setdocuments(empDetails.data.documents);
+            } catch (error) {
+                console.log('error', error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [id, accessToken]);
+  
+
 
   return (
-    <>
-    {organizationDocuments && organizationDocuments.length > 0 && organizationDocuments.map((data, index) => (
-
-    <div key={index} className='flex items-center justify-between w-[22%] p-3 rounded-lg border border-gray-400'>
-        <p className='text-md font-medium'>{data.name}</p>
-        <span className='flex gap-2'>
-            <FiEye className='text-lg '/>
-            <CiSaveDown1 className='text-lg font-bold'/>
-        </span>
+    <div className='flex items-center justify-between w-[22%] p-3 rounded-lg border border-gray-400'>
+         {documents && documents.map((document, index) => (
+        <div key={index}>
+          <h3>{document?.name}</h3>
+          <Image src={document?.url} alt={document?.name}  width={100} height={100} />
+        </div>
+      ))}
     </div>  )
-    )}
-</>
-)}
+}
+
 export default DocumentCard

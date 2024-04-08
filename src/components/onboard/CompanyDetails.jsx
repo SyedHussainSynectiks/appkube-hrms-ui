@@ -8,10 +8,10 @@ import { setCompanyData } from "@/redux/slices/Onboardingpersdetails";
 // import { createUser } from "@/redux/slices/personalDetails";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { notification, Select,Upload } from "antd";
+import { notification,Upload } from "antd";
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import getAccessTokenFromCookie from "@/utils/getAccessToken";
-import axios from "axios";
+import axios from "@/api/axios";
 
 // import StateComponent from "./countrys";
 import StateComponent from "../location/States";
@@ -87,20 +87,34 @@ const CompanyDetails = ({ step, setStep  }) => {
     });
   };
 
+
   const handleCompanySubmit = async () => {
     // e.preventDefault();
+    if(!company.number ||
+      company.number.length !== 10){
+        notification.open({
+          message: "Please fill the number correctly",
+        });
+        return;
+      }
+
+    if(!company.zipcode ||
+       company.zipcode.length !==6){
+          notification.open({
+            message: "Please fill the zipcode correctly",
+          });
+          return;
+      }
+    
 
     if (
       !company.name ||
       !company.email ||
-      !company.number ||
-      company.number.length !== 10 ||
       !company.address_line_1 ||
       !company.address_line_2 ||
       !company.country ||
       !company.state ||
-      !company.city ||
-      !company.zipcode 
+      !company.city 
       // ||
       // company.zipcode.length !==6
     ) {
@@ -187,7 +201,7 @@ console.log(req)
   
     try {
       const response = await axios.post(
-        'https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/docUpload',
+        '/docUpload',
         req,
         {
           headers: {
