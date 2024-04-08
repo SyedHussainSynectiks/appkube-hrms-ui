@@ -127,7 +127,7 @@ const Equipments = ({ tab, setTab }) => {
         let config = {
           method: 'put',
           maxBodyLength: Infinity,
-          url: 'https://i3mdnxvgrf.execute-api.us-east-1.amazonaws.com/dev/employee/equipmentInfo',
+          url: 'https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/employee/equipmentInfo',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

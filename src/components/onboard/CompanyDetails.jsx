@@ -187,7 +187,7 @@ console.log(req)
   
     try {
       const response = await axios.post(
-        'https://i3mdnxvgrf.execute-api.us-east-1.amazonaws.com/dev/docUpload',
+        'https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/docUpload',
         req,
         {
           headers: {

@@ -22,25 +22,25 @@ const Page = () => {
       key: "2",
       label: "Professional Information",
       children: <Professional tab={activeTab} setTab={setActiveTab} />,
-      // disabled: !personalInfoFilled,
+      disabled: !personalInfoFilled,
     },
     {
       key: "3",
       label: "Equipment Details",
       children: <Equipment tab={activeTab} setTab={setActiveTab} setPersonalInfoFilled={setPersonalInfoFilled}/>,
-      // disabled: !personalInfoFilled,
+      disabled: !personalInfoFilled,
     },
     {
       key: "4",
       label: "Document",
       children: <Documents tab={activeTab} setTab={setActiveTab} setPersonalInfoFilled={setPersonalInfoFilled}/>,
-      // disabled: !personalInfoFilled,
+      disabled: !personalInfoFilled,
     },
     {
       key: "5",
       label: "Review",
       children: <Review tab={activeTab} setTab={setActiveTab} setPersonalInfoFilled={setPersonalInfoFilled}/>,
-      // disabled: !personalInfoFilled,
+      disabled: !personalInfoFilled,
     },
   ];
   const onChange = (key) => {

@@ -181,7 +181,7 @@ import ProfessionalInfo from "./DetailsReviews/ProfessionalInfo";
             </div>
           </div>
           <div className="flex gap-4">
-            <DocumentCard />
+            {/* <DocumentCard /> */}
             <DocumentCard />
           </div>
         </div>

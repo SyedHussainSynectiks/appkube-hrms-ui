@@ -118,7 +118,7 @@ const ProfessionalInfo = ({ tab, setTab }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://i3mdnxvgrf.execute-api.us-east-1.amazonaws.com/dev/designation",
+          "https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/designation",
           {
             headers: {
               Accept: "application/json",
@@ -141,7 +141,7 @@ const ProfessionalInfo = ({ tab, setTab }) => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'https://i3mdnxvgrf.execute-api.us-east-1.amazonaws.com/dev/department',
+        url: 'https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/department',
         headers: {
           'Accept': 'application/json',
           'Authorization': `Bearer ${accessToken}`,

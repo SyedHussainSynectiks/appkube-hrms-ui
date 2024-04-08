@@ -46,7 +46,7 @@ const App = () => {
         // Upload the image to the server
         try {
           const response = await axios.post(
-            'https://i3mdnxvgrf.execute-api.us-east-1.amazonaws.com/dev/docUpload',
+            'https://68v4n18rx1.execute-api.us-east-1.amazonaws.com/dev/docUpload',
             { fileName: info.file.name, data: url }
           );
           console.log(response.data);
